@@ -3,10 +3,6 @@ import * as todoModels from "../services/todoServices";
 import { Todo } from "../types";
 import { server } from "../server";
 
-// jest.mock("./db", () => ({
-//   query: jest.fn(),
-// }));
-
 import supertest from "supertest";
 import { app } from "../server";
 
@@ -15,9 +11,10 @@ export const api = supertest(app);
 
 beforeEach(async () => {
   await todoModels.deleteAllTodo();
-  for (let i = 0; i < initialNotes.length; i++) {
-    await todoModels.addTodo({ name: initialNotes[i] });
-  }
+  const promises = initialNotes.map((todoName) => {
+    todoModels.addTodo({ name: todoName });
+  });
+  await Promise.all(promises);
 });
 
 describe("Todos", () => {
