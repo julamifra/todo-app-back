@@ -35,3 +35,8 @@ export const deleteTodo = async (id: number): Promise<QueryResult<[]>> => {
   const res = await pool.query("DELETE FROM todos WHERE id = $1", [id]);
   return res;
 };
+
+export const deleteAllTodo = async (): Promise<QueryResult<[]>> => {
+  const res = await pool.query("TRUNCATE Table todos");
+  return res;
+};

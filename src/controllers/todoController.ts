@@ -16,7 +16,7 @@ export const postTodos = async (req: Request, res: Response) => {
   try {
     const { name } = req.body as BodyCreateTodo;
     const addedTodo = await todoModels.addTodo({ name });
-    res.json(addedTodo);
+    res.status(201).json(addedTodo);
   } catch (e) {
     handleHttp(res, ERROR_CODES.ERROR_POST_TODOS, (e as Error).message);
   }

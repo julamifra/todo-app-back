@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import todoRoutes from "./routes/todos";
 
-const app = express();
+export const app = express();
 const port = process.env.PORT ?? 3000;
 
 // MW to transform body to json
@@ -17,6 +17,6 @@ app.get("/", (_req, res) => {
 
 app.use("/api/todos", todoRoutes);
 
-app.listen(port, () => {
+export const server = app.listen(port, () => {
   console.log(`Server is running at  http://localhost:${port}`);
 });

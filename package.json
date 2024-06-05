@@ -6,14 +6,16 @@
   "scripts": {
     "tsc": "tsc",
     "lint": "ts-standard",
-    "dev": "ts-node-dev src/server.ts",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./build/server.js"
+    "dev": "cross-env NODE_ENV=development ts-node-dev src/server.ts",
+    "test": "cross-env NODE_ENV=test jest",
+    "test:watch": "npm run test -- --watch",
+    "start": "cross-env NODE_ENV=production node ./build/server.js"
   },
   "author": "julian amigo frances",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "pg": "^8.11.5"
@@ -21,10 +23,14 @@
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
     "@types/pg": "^8.11.6",
+    "@types/supertest": "^6.0.2",
+    "supertest": "^7.0.0",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
-    "ts-standard": "^12.0.2"
+    "ts-standard": "^12.0.2",
+    "ts-jest": "^29.1.4"
   },
   "eslintConfig": {
     "parserOptions": {
