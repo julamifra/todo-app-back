@@ -10,7 +10,7 @@ This RESTFul API is built with ExpressJS and uses PostgresSQL for the data persi
 1. Clone this repository in your local PC:
 
 ```bash
-git clone https://github.com/julamifra/todo-app-front.git
+git clone https://github.com/julamifra/todo-app-back.git
 ```
 
 2. In the project directory, install dependencies:
