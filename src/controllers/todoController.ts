@@ -1,9 +1,9 @@
-import { Request, Response } from "express";
-import { handleHttp } from "../utils/error.handle";
-import * as todoModels from "../services/todoServices";
-import { BodyCreateTodo, BodyUpdateTodo, ERROR_CODES } from "../types";
+import { Request, Response } from 'express';
+import { handleHttp } from '../utils/error.handle';
+import * as todoModels from '../services/todoServices';
+import { BodyCreateTodo, BodyUpdateTodo, ERROR_CODES } from '../types';
 
-export const getTodos = async (_req: Request, res: Response) => {
+export const getTodos = async (_req: Request, res: Response): Promise<void> => {
   try {
     const todos = await todoModels.getTodos();
     res.send(todos);
@@ -12,7 +12,7 @@ export const getTodos = async (_req: Request, res: Response) => {
   }
 };
 
-export const postTodos = async (req: Request, res: Response) => {
+export const postTodos = async (req: Request, res: Response): Promise<void> => {
   try {
     const { name } = req.body as BodyCreateTodo;
     const addedTodo = await todoModels.addTodo({ name });
@@ -22,7 +22,7 @@ export const postTodos = async (req: Request, res: Response) => {
   }
 };
 
-export const putTodos = async (req: Request, res: Response) => {
+export const putTodos = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     const { newName, newCompleted } = req.body as BodyUpdateTodo;
@@ -32,38 +32,39 @@ export const putTodos = async (req: Request, res: Response) => {
       newCompleted,
     });
     if (dbResponse.rowCount === 0) {
-      return handleHttp(
+      handleHttp(
         res,
         ERROR_CODES.ERROR_PUT_TODOS_NOT_FOUND,
-        "Todo not found",
-        404
+        'Todo not found',
+        404,
       );
+      return;
     }
-    return res.sendStatus(204);
+    res.sendStatus(204);
   } catch (e) {
-    return handleHttp(res, ERROR_CODES.ERROR_PUT_TODOS, (e as Error).message);
+    handleHttp(res, ERROR_CODES.ERROR_PUT_TODOS, (e as Error).message);
   }
 };
 
-export const deleteTodos = async (req: Request, res: Response) => {
+export const deleteTodos = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   try {
     const { id } = req.params;
     const idNum = parseInt(id);
     const dbResponse = await todoModels.deleteTodo(idNum);
     if (dbResponse.rowCount === 0) {
-      return handleHttp(
+      handleHttp(
         res,
         ERROR_CODES.ERROR_DELETE_TODOS_NOT_FOUND,
-        "Todo not found",
-        404
+        'Todo not found',
+        404,
       );
+      return;
     }
-    return res.sendStatus(204);
+    res.sendStatus(204);
   } catch (e) {
-    return handleHttp(
-      res,
-      ERROR_CODES.ERROR_DELETE_TODOS,
-      (e as Error).message
-    );
+    handleHttp(res, ERROR_CODES.ERROR_DELETE_TODOS, (e as Error).message);
   }
 };

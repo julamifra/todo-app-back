@@ -1,11 +1,11 @@
-import { Response } from "express";
-import { ErrorCodesTypes, ErrorResponse } from "../types";
+import { Response } from 'express';
+import { ErrorCodesTypes, ErrorResponse } from '../types';
 
 export const handleHttp = (
   res: Response,
   errorCode: ErrorCodesTypes,
   errorMessage: string,
-  code?: number
+  code?: number,
 ) => {
   console.error(errorMessage);
   return res

@@ -4,24 +4,24 @@ export interface Todo {
   completed: boolean;
 }
 
-export type NameTodo = Pick<Todo, "name">;
-export type IdTodo = Pick<Todo, "id">;
-export type CompletedTodo = Pick<Todo, "id">;
+export type NameTodo = Pick<Todo, 'name'>;
+export type IdTodo = Pick<Todo, 'id'>;
+export type CompletedTodo = Pick<Todo, 'id'>;
 
-export type UpdateTodo = {
+export interface UpdateTodo {
   id: number;
   newName: string | null;
   newCompleted: boolean | null;
-};
+}
 
-export type BodyCreateTodo = {
+export interface BodyCreateTodo {
   name: string;
-};
+}
 
-export type BodyUpdateTodo = {
+export interface BodyUpdateTodo {
   newName: string;
   newCompleted: boolean;
-};
+}
 
 export interface ErrorResponse {
   errorCode: ErrorCodesTypes;
@@ -29,14 +29,14 @@ export interface ErrorResponse {
 }
 
 export const ERROR_CODES = {
-  ERROR_POST_VALIDATE: "ERROR_POST_VALIDATE",
-  ERROR_PUT_VALIDATE: "ERROR_PUT_VALIDATE",
-  ERROR_GET_TODOS: "ERROR_GET_TODOS",
-  ERROR_POST_TODOS: "ERROR_POST_TODOS",
-  ERROR_PUT_TODOS_NOT_FOUND: "ERROR_PUT_TODOS_NOT_FOUND",
-  ERROR_PUT_TODOS: "ERROR_PUT_TODOS",
-  ERROR_DELETE_TODOS_NOT_FOUND: "ERROR_DELETE_TODOS_NOT_FOUND",
-  ERROR_DELETE_TODOS: "ERROR_DELETE_TODOS",
+  ERROR_POST_VALIDATE: 'ERROR_POST_VALIDATE',
+  ERROR_PUT_VALIDATE: 'ERROR_PUT_VALIDATE',
+  ERROR_GET_TODOS: 'ERROR_GET_TODOS',
+  ERROR_POST_TODOS: 'ERROR_POST_TODOS',
+  ERROR_PUT_TODOS_NOT_FOUND: 'ERROR_PUT_TODOS_NOT_FOUND',
+  ERROR_PUT_TODOS: 'ERROR_PUT_TODOS',
+  ERROR_DELETE_TODOS_NOT_FOUND: 'ERROR_DELETE_TODOS_NOT_FOUND',
+  ERROR_DELETE_TODOS: 'ERROR_DELETE_TODOS',
 } as const;
 
 export type ErrorCodesTypes = (typeof ERROR_CODES)[keyof typeof ERROR_CODES];

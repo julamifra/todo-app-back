@@ -1,20 +1,20 @@
-import { NextFunction, Request, Response } from "express";
-import { isGreater255Length, isString } from "../utils/validations";
-import { BodyCreateTodo, BodyUpdateTodo, ERROR_CODES } from "../types";
-import { handleHttp } from "../utils/error.handle";
+import { NextFunction, Request, Response } from 'express';
+import { isGreater255Length, isString } from '../utils/validations';
+import { BodyCreateTodo, BodyUpdateTodo, ERROR_CODES } from '../types';
+import { handleHttp } from '../utils/error.handle';
 
 export const validatePost = (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const body = req?.body as BodyCreateTodo;
   if (!body) {
     return handleHttp(
       res,
       ERROR_CODES.ERROR_POST_VALIDATE,
-      "Request must have a body",
-      400
+      'Request must have a body',
+      400,
     );
   }
   if (!body.name) {
@@ -22,7 +22,7 @@ export const validatePost = (
       res,
       ERROR_CODES.ERROR_POST_VALIDATE,
       'Body must have a "name" field',
-      400
+      400,
     );
   }
 
@@ -31,7 +31,7 @@ export const validatePost = (
       res,
       ERROR_CODES.ERROR_POST_VALIDATE,
       '"name" field must be of type string',
-      400
+      400,
     );
   }
   if (isGreater255Length(body.name)) {
@@ -39,7 +39,7 @@ export const validatePost = (
       res,
       ERROR_CODES.ERROR_POST_VALIDATE,
       '"name" is greater than 255 characters',
-      400
+      400,
     );
   }
   return next();
@@ -48,21 +48,21 @@ export const validatePost = (
 export const validatePut = (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const { newName, newCompleted } = req.body as BodyUpdateTodo;
 
   if (
-    (newName && typeof newName === "string") ||
-    (req.body.hasOwnProperty("newCompleted") &&
-      typeof newCompleted === "boolean")
+    (newName && typeof newName === 'string') ||
+    (Object.hasOwnProperty.call(req.body, 'newCompleted') &&
+      typeof newCompleted === 'boolean')
   ) {
     return next();
   }
   return handleHttp(
     res,
     ERROR_CODES.ERROR_PUT_VALIDATE,
-    "Incorrect body params",
-    400
+    'Incorrect body params',
+    400,
   );
 };
