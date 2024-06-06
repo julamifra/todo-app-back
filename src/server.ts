@@ -18,5 +18,5 @@ app.get("/", (_req, res) => {
 app.use("/api/todos", todoRoutes);
 
 export const server = app.listen(port, () => {
-  console.log(`Server is running at  http://localhost:${port}`);
+  console.log(`Server is running at PORT: ${port}`);
 });
